@@ -53,7 +53,7 @@ public class mmsimGUI extends Application {
         VBox.setVgrow(eloHistoryText, Priority.ALWAYS);
 
         AnchorPane leftAnchor = new AnchorPane();
-        TableView leftTable = new TableView();
+        TableView<Player> leftTable = new TableView();
 
         leftAnchor.getChildren().addAll(leftTable);
 
@@ -198,7 +198,6 @@ public class mmsimGUI extends Application {
             }
             Player p = new Player(uuid, name, skill, rating, volatility, confidence, gamesWon, gamesPlayed, eloHistory);
             players.add(p);
-            line = br.readLine();
         }
 
         return players;
