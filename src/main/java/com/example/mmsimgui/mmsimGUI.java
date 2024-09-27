@@ -176,7 +176,7 @@ public class mmsimGUI extends Application {
 
         while ((line = br.readLine()) != null) {
             String[] data = line.split(",");
-            UUID uuid = UUID.fromString(data[0].toString());
+            UUID uuid = UUID.fromString(data[0]);
             int name = Integer.parseInt(data[1]);
             double skill = Double.parseDouble(data[2]);
             int rating = Integer.parseInt(data[3]);
@@ -184,10 +184,10 @@ public class mmsimGUI extends Application {
             double confidence = Double.parseDouble(data[5]);
             int gamesWon = Integer.parseInt(data[6]);
             int gamesPlayed = Integer.parseInt(data[7]);
-            ArrayList eloHistory = new ArrayList();
+            ArrayList<Integer> eloHistory = new ArrayList<>();
             for (int i = 8; i < data.length; i++) {
                 if (i == 8) {
-                    eloHistory.add(Integer.parseInt(data[i].substring(2, data[i].length())));
+                    eloHistory.add(Integer.parseInt(data[i].substring(2)));
                 } else if (i == data.length - 1) {
                     eloHistory.add(Integer.parseInt(data[i].substring(0, data[i].length() - 2)));
                 } else {
