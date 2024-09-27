@@ -93,6 +93,8 @@ public class mmsimGUI extends Application {
         FileChooser fileChooser = new FileChooser();
         EventHandler<ActionEvent> menuEvent = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
+                players.clear();
+                leftTable.getItems().clear();
                 File selectedFile = fileChooser.showOpenDialog(stage);
                 try {
                     players = readFile(selectedFile);
