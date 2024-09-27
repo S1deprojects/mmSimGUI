@@ -1,65 +1,79 @@
 package com.example.mmsimgui;
 
+import javafx.beans.property.*;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class Player implements Comparable<Player> {
-    private final int name;
-    private final double skill;
-    private final int rating;
-    private final double volatility;
-    private final double confidence;
-    private final int gamesWon;
-    private final int gamesPlayed;
-    private final UUID uuid;
+    private IntegerProperty name;
+    private DoubleProperty skill;
+    private IntegerProperty rating;
+    private DoubleProperty volatility;
+    private DoubleProperty confidence;
+    private IntegerProperty gamesWon;
+    private IntegerProperty gamesPlayed;
+    private StringProperty uuid;
     //private Set<Game> gameHistory = new HashSet<Game>();
     private final ArrayList<Integer> eloHistory;
-    private int skillRank;
-    private int eloRank;
-    private int rankDifference;
+    private IntegerProperty skillRank;
+    private IntegerProperty eloRank;
+    private IntegerProperty rankDifference;
 
     public Player(UUID uuid, int name, double skill, int rating, double volatility, double confidence, int gamesWon, int gamesPlayed, ArrayList<Integer> eloHistory) {
-        this.uuid = uuid;
-        this.name = name;
-        this.skill = skill;
-        this.rating = rating;
-        this.volatility = volatility;
-        this.confidence = confidence;
-        this.gamesWon = gamesWon;
-        this.gamesPlayed = gamesPlayed;
+        this.uuid = new SimpleStringProperty(uuid.toString());
+        this.name = new SimpleIntegerProperty(name);
+        this.skill = new SimpleDoubleProperty(skill);
+        this.rating = new SimpleIntegerProperty(rating);
+        this.volatility = new SimpleDoubleProperty(volatility);
+        this.confidence = new SimpleDoubleProperty(confidence);
+        this.gamesWon = new SimpleIntegerProperty(gamesWon);
+        this.gamesPlayed = new SimpleIntegerProperty(gamesPlayed);
         this.eloHistory = eloHistory;
     }
 
-    public UUID getUuid() {
+    public StringProperty getUuid() {
         return uuid;
     }
 
-    public int getName() {
+    public IntegerProperty getName() {
         return name;
     }
 
-    public double getSkill() {
+    public DoubleProperty getSkill() {
         return skill;
     }
 
-    public int getRating() {
+    public double getSkillValue() {
+        return skill.getValue();
+    }
+
+    public IntegerProperty getRating() {
         return rating;
     }
 
-    public double getVolatility() {
+    public int getRatingValue() {
+        return rating.getValue();
+    }
+
+    public DoubleProperty getVolatility() {
         return volatility;
     }
 
-    public double getConfidence() {
+    public DoubleProperty getConfidence() {
         return confidence;
     }
 
-    public int getGamesWon() {
+    public IntegerProperty getGamesWon() {
         return gamesWon;
     }
 
-    public int getGamesPlayed() {
+    public IntegerProperty getGamesPlayed() {
         return gamesPlayed;
+    }
+
+    public int getGamesPlayedValue() {
+        return gamesPlayed.getValue();
     }
 
     public ArrayList<Integer> getEloHistory() {
@@ -67,31 +81,43 @@ public class Player implements Comparable<Player> {
     }
 
     public void setSkillRank(int skillRank) {
-        this.skillRank = skillRank;
+        this.skillRank = new SimpleIntegerProperty(skillRank);
     }
 
-    public int getSkillRank() {
+    public IntegerProperty getSkillRank() {
         return skillRank;
     }
 
-    public void setEloRank(int eloRank) {
-        this.eloRank = eloRank;
+    public int getSkillRankValue() {
+        return skillRank.getValue();
     }
 
-    public int getEloRank() {
+    public void setEloRank(int eloRank) {
+        this.eloRank = new SimpleIntegerProperty(eloRank);
+    }
+
+    public IntegerProperty getEloRank() {
         return eloRank;
     }
 
-    public void setRankDifference(int rankDifference) {
-        this.rankDifference = rankDifference;
+    public int getEloRankValue() {
+        return eloRank.getValue();
     }
 
-    public int getRankDifference() {
+    public void setRankDifference(int rankDifference) {
+        this.rankDifference = new SimpleIntegerProperty(rankDifference);
+    }
+
+    public IntegerProperty getRankDifference() {
         return rankDifference;
+    }
+
+    public int getRankDifferenceValue() {
+        return rankDifference.getValue();
     }
 
     @Override
     public int compareTo(Player p2) {
-        return this.rating - p2.getRating();
+        return this.rating.getValue() - p2.getRatingValue();
     }
 }

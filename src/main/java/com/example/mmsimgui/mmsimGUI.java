@@ -10,7 +10,6 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -53,41 +52,41 @@ public class mmsimGUI extends Application {
         VBox.setVgrow(eloHistoryText, Priority.ALWAYS);
 
         AnchorPane leftAnchor = new AnchorPane();
-        TableView<Player> leftTable = new TableView();
+        TableView<Player> leftTable = new TableView<>();
 
         leftAnchor.getChildren().addAll(leftTable);
 
-        TableColumn<Player, String> name = new TableColumn<>("Name");
+        TableColumn<Player, Integer> name = new TableColumn<>("Name");
         leftTable.getColumns().add(name);
-        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        name.setCellValueFactory(data -> data.getValue().getName().asObject());
 
-        TableColumn<Player, String> skill = new TableColumn<>("Skill");
+        TableColumn<Player, Double> skill = new TableColumn<>("Skill");
         leftTable.getColumns().add(skill);
-        skill.setCellValueFactory(new PropertyValueFactory<>("skill"));
+        skill.setCellValueFactory(data -> data.getValue().getSkill().asObject());
 
-        TableColumn<Player, String> rating = new TableColumn<>("Rating");
+        TableColumn<Player, Integer> rating = new TableColumn<>("Rating");
         leftTable.getColumns().add(rating);
-        rating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        rating.setCellValueFactory(data -> data.getValue().getRating().asObject());
 
-        TableColumn<Player, String> gamesWon = new TableColumn<>("gamesWon");
+        TableColumn<Player, Integer> gamesWon = new TableColumn<>("gamesWon");
         leftTable.getColumns().add(gamesWon);
-        gamesWon.setCellValueFactory(new PropertyValueFactory<>("gamesWon"));
+        gamesWon.setCellValueFactory(data -> data.getValue().getGamesWon().asObject());
 
-        TableColumn<Player, String> gamesPlayed = new TableColumn<>("gamesPlayed");
+        TableColumn<Player, Integer> gamesPlayed = new TableColumn<>("gamesPlayed");
         leftTable.getColumns().add(gamesPlayed);
-        gamesPlayed.setCellValueFactory(new PropertyValueFactory<>("gamesPlayed"));
+        gamesPlayed.setCellValueFactory(data -> data.getValue().getGamesPlayed().asObject());
 
-        TableColumn<Player, String> skillRank = new TableColumn<>("skillRank");
+        TableColumn<Player, Integer> skillRank = new TableColumn<>("skillRank");
         leftTable.getColumns().add(skillRank);
-        skillRank.setCellValueFactory(new PropertyValueFactory<>("skillRank"));
+        skillRank.setCellValueFactory(data -> data.getValue().getSkillRank().asObject());
 
-        TableColumn<Player, String> eloRank = new TableColumn<>("eloRank");
+        TableColumn<Player, Integer> eloRank = new TableColumn<>("eloRank");
         leftTable.getColumns().add(eloRank);
-        eloRank.setCellValueFactory(new PropertyValueFactory<>("eloRank"));
+        eloRank.setCellValueFactory(data -> data.getValue().getEloRank().asObject());
 
-        TableColumn<Player, String> rankDifference = new TableColumn<>("rankDifference");
+        TableColumn<Player, Integer> rankDifference = new TableColumn<>("rankDifference");
         leftTable.getColumns().add(rankDifference);
-        rankDifference.setCellValueFactory(new PropertyValueFactory<>("rankDifference"));
+        rankDifference.setCellValueFactory(data -> data.getValue().getRankDifference().asObject());
 
 
         FileChooser fileChooser = new FileChooser();
@@ -103,7 +102,7 @@ public class mmsimGUI extends Application {
                 }
 
                 stage.setTitle("Player Data Visualiser: " + selectedFile.getName());
-                players.sort(Comparator.comparing(Player::getSkill));
+                players.sort(Comparator.comparing(Player::getSkillValue));
                 int i = 1;
                 for (Player player : players) {
                     player.setSkillRank(i);
@@ -111,12 +110,12 @@ public class mmsimGUI extends Application {
                 }
 
                 int totalRankDifference = 0;
-                players.sort(Comparator.comparing(Player::getRating));
+                players.sort(Comparator.comparing(Player::getRatingValue));
                 i = 1;
                 for (Player player : players) {
                     player.setEloRank(i);
-                    player.setRankDifference(Math.abs(player.getEloRank() - player.getSkillRank()));
-                    totalRankDifference += player.getRankDifference();
+                    player.setRankDifference(Math.abs(player.getEloRankValue() - player.getSkillRankValue()));
+                    totalRankDifference += player.getRankDifferenceValue();
                     i++;
                 }
 
@@ -157,7 +156,7 @@ public class mmsimGUI extends Application {
                     public void onChanged(
                             Change<? extends Player> change) {
                         series.getData().clear();
-                        for (int i = 0; i < change.getList().get(0).getGamesPlayed(); i++) {
+                        for (int i = 0; i < change.getList().get(0).getGamesPlayedValue(); i++) {
                             series.getData().add(new XYChart.Data(i, change.getList().get(0).getEloHistory().get(i)));
                         }
                         eloHistoryText.setText(selectedItems.get(0).getEloHistory().toString());
