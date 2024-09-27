@@ -16,6 +16,9 @@ public class Player implements Comparable<Player> {
     private final UUID uuid;
     //private Set<Game> gameHistory = new HashSet<Game>();
     private final ArrayList<Integer> eloHistory;
+    private int skillRank;
+    private int eloRank;
+    private int rankDifference;
 
     public Player(UUID uuid, String name, double skill, int rating, double volatility, double confidence, int gamesWon, int gamesPlayed, ArrayList<Integer> eloHistory) {
         this.uuid = uuid;
@@ -63,6 +66,30 @@ public class Player implements Comparable<Player> {
 
     public ArrayList<Integer> getEloHistory() {
         return eloHistory;
+    }
+
+    public void setSkillRank(int skillRank) {
+        this.skillRank = skillRank;
+    }
+
+    public int getSkillRank() {
+        return skillRank;
+    }
+
+    public void setEloRank(int eloRank) {
+        this.eloRank = eloRank;
+    }
+
+    public int getEloRank() {
+        return eloRank;
+    }
+
+    public void setRankDifference(int rankDifference) {
+        this.rankDifference = rankDifference;
+    }
+
+    public int getRankDifference() {
+        return rankDifference;
     }
 
     @Override
