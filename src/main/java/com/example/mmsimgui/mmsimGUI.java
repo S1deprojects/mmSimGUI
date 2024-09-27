@@ -101,6 +101,8 @@ public class mmsimGUI extends Application {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+
+                stage.setTitle("Player Data Visualiser: " + selectedFile.getName());
                 players.sort(Comparator.comparing(Player::getSkill));
                 int i = 1;
                 for (Player player : players) {
