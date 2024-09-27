@@ -1,12 +1,10 @@
 package com.example.mmsimgui;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.UUID;
-import java.util.Deque;
 
 public class Player implements Comparable<Player> {
-    private final String name;
+    private final int name;
     private final double skill;
     private final int rating;
     private final double volatility;
@@ -20,7 +18,7 @@ public class Player implements Comparable<Player> {
     private int eloRank;
     private int rankDifference;
 
-    public Player(UUID uuid, String name, double skill, int rating, double volatility, double confidence, int gamesWon, int gamesPlayed, ArrayList<Integer> eloHistory) {
+    public Player(UUID uuid, int name, double skill, int rating, double volatility, double confidence, int gamesWon, int gamesPlayed, ArrayList<Integer> eloHistory) {
         this.uuid = uuid;
         this.name = name;
         this.skill = skill;
@@ -36,7 +34,7 @@ public class Player implements Comparable<Player> {
         return uuid;
     }
 
-    public String getName() {
+    public int getName() {
         return name;
     }
 
@@ -93,8 +91,7 @@ public class Player implements Comparable<Player> {
     }
 
     @Override
-    public int compareTo(Player p2)
-    {
+    public int compareTo(Player p2) {
         return this.rating - p2.getRating();
     }
 }

@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class mmsimGUI extends Application {
     ArrayList<Player> players = new ArrayList<>();
@@ -102,7 +101,7 @@ public class mmsimGUI extends Application {
                 }
                 players.sort(Comparator.comparing(Player::getSkill));
                 int i = 1;
-                for(Player player : players) {
+                for (Player player : players) {
                     player.setSkillRank(i);
                     i++;
                 }
@@ -110,14 +109,14 @@ public class mmsimGUI extends Application {
                 int totalRankDifference = 0;
                 players.sort(Comparator.comparing(Player::getRating));
                 i = 1;
-                for(Player player : players) {
+                for (Player player : players) {
                     player.setEloRank(i);
-                    player.setRankDifference(Math.abs(player.getEloRank()-player.getSkillRank()));
+                    player.setRankDifference(Math.abs(player.getEloRank() - player.getSkillRank()));
                     totalRankDifference += player.getRankDifference();
                     i++;
                 }
 
-                double avgRankDiff = totalRankDifference/players.size();
+                double avgRankDiff = totalRankDifference / players.size();
 
                 String output = "Average rank difference: " + String.format("%.2f", avgRankDiff);
                 avgRD.setText(output);
@@ -178,7 +177,7 @@ public class mmsimGUI extends Application {
         while ((line = br.readLine()) != null) {
             String[] data = line.split(",");
             UUID uuid = UUID.fromString(data[0].toString());
-            String name = data[1];
+            int name = Integer.parseInt(data[1]);
             double skill = Double.parseDouble(data[2]);
             int rating = Integer.parseInt(data[3]);
             double volatility = Double.parseDouble(data[4]);
