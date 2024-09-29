@@ -68,6 +68,10 @@ public class Player implements Comparable<Player> {
         return gamesWon;
     }
 
+    public int getGamesWonValue() {
+        return gamesWon.getValue();
+    }
+
     public IntegerProperty getGamesPlayed() {
         return gamesPlayed;
     }

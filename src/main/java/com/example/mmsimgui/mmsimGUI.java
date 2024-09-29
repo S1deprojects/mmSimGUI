@@ -46,7 +46,8 @@ public class mmsimGUI extends Application {
         eloHistoryText.setEditable(false);
         eloHistoryText.setWrapText(true);
         Text avgRD = new Text("");
-        box1.getChildren().addAll(menubar, mainPane, avgRD, eloHistoryText);
+        Text winrate = new Text("");
+        box1.getChildren().addAll(menubar, mainPane, avgRD, winrate, eloHistoryText);
         VBox.setVgrow(mainPane, Priority.ALWAYS);
         VBox.setVgrow(menubar, Priority.ALWAYS);
         VBox.setVgrow(eloHistoryText, Priority.ALWAYS);
@@ -160,6 +161,7 @@ public class mmsimGUI extends Application {
                             series.getData().add(new XYChart.Data(i, change.getList().get(0).getEloHistory().get(i)));
                         }
                         eloHistoryText.setText(selectedItems.get(0).getEloHistory().toString());
+                        winrate.setText("winrate: " + Double.toString((double) selectedItems.get(0).getGamesWonValue() / selectedItems.get(0).getGamesPlayedValue()));
                     }
                 });
 
